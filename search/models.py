@@ -18,5 +18,14 @@ class path(models.Model):
     mark = models.ForeignKey(mark, on_delete=models.CASCADE)
     model = models.ForeignKey(model, on_delete=models.CASCADE)
     producer_country_name = models.CharField(max_length=200)
+    price = models.IntegerField()
+    json_data = models.JSONField(null=True)
     is_visible = models.BooleanField(default=True)
+    
+    
+    class Meta:
+        indexes = [
+            models.Index(fields=['name', 'mark', 'model'])
+        ]
+        
     
