@@ -34,14 +34,15 @@ def parts(request):
         parts = filter_marks_params(query=query, parts=parts)
     else:
         parts = filter_other(query=query, parts=parts)
-    
+
+
     min_price = 1000
     max_price = 10000
     if "price_gte" in query:
         min_price = query["price_gte"]
     if "price_lte" in query:
         max_price = query["price_lte"]
-         
+
     response = []
     summ = 0
     for p in parts:
@@ -62,15 +63,15 @@ def parts(request):
             }
             summ += res_p["price"]
             response.append(res_p)
-        
+
     page = int(query["page"])
     index = (page - 1) * 10
     response = response[index:(index+10)]
-        
+
     result = {
         "response": response,
         "count": len(parts),
         "summ": summ
     }
-        
+
     return JsonResponse(result, safe=False)
